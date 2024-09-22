@@ -21,7 +21,7 @@
                 placeholder="Digite sua senha"
                 /> 
             </div>
-            <button type="submit">Login</button>
+            <button type="Login">Login</button>
         </form>
         <p v-if="errorMessage">{{ errorMessage }}</p>
     </div>
@@ -37,7 +37,7 @@ export default{
         const errorMessage = ref("");
 
         const handleSubmit = () => {
-            if (!email.value || password.value){
+            if (!email.value || !password.value){
                 errorMessage.value = "Por favor preencha ambos os campos";
             }
             else{
@@ -58,12 +58,13 @@ export default{
 </script>
 
 <style scoped>
-.login-container {
+.Login-container {
   max-width: 400px;
   margin: 0 auto;
   padding: 2rem;
   border: 1px solid #ccc;
   border-radius: 8px;
+  margin-top: 200px;
 }
 
 .form-group {
