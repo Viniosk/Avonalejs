@@ -73,33 +73,16 @@ setup() {
 
 <style scoped>
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  overflow: hidden;
-}
-
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(''); 
+  background-image: url('@/assets/back.png'); 
   background: linear-gradient(to bottom right, #a4f1f6, #06bc9b);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
 }
 
 .Login-container {

@@ -13,6 +13,22 @@
       </ul>
     </nav>
   </header>
+
+  <div class="Container">
+
+    <div class="Container-tarefas1">
+
+      1
+
+  </div>
+
+  <div class="Container-tarefas2">
+
+    2
+
+</div>
+</div>
+
 </template>
 
 <script>
@@ -75,4 +91,29 @@ export default {
     gap: 1rem;
   }
 }
+
+.Container{
+  width: 600px;
+  height: 400px;
+  background: #0f4a8e;
+  margin: 100px auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Container-tarefas1{
+  width: 100px;
+  height: 100px;
+  background: green;
+  font-size: 2rem;
+}
+
+.Container-tarefas2{
+  width: 100px;
+  height: 100px;
+  background: yellow;
+  font-size: 2rem;
+}
+
 </style>

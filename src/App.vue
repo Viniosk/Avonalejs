@@ -12,4 +12,8 @@ export default {
 
 <style>
 
+body{
+  margin: auto;
+}
+
 </style>
