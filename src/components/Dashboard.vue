@@ -6,7 +6,7 @@
     </div>
     <nav class="nav">
       <ul>
-        <li><a href="#">Início</a></li>
+        <li><a href="/">Início</a></li>
         <li><a href="#">Sobre</a></li>
         <li><a href="#">Serviços</a></li>
         <li><a href="#">Contato</a></li>
@@ -16,17 +16,18 @@
 
   <div class="Container">
 
-    <div class="Container-tarefas1">
+    <div class="Container-tarefas">
 
-      1
+      <div class="Titulo">Pendentes</div>
 
-  </div>
+    </div>
 
-  <div class="Container-tarefas2">
+    <div class="Container-tarefas">
 
-    2
+      <div class="Titulo">Em execução</div>
+      
 
-</div>
+    </div>
 </div>
 
 </template>
@@ -43,11 +44,13 @@ export default {
 
 <style scoped>
 .header {
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.1rem 3rem;
-  background-color: #0f4a8e;
+  background: rgb(15,109,103);
+  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%, rgba(29,201,211,1) 100%);
   color: #ffffff;
 }
 
@@ -93,27 +96,32 @@ export default {
 }
 
 .Container{
-  width: 600px;
-  height: 400px;
-  background: #0f4a8e;
+  width: 1000px;
+  height: 530px;
+  background: rgb(15,109,103);
+  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%, rgba(29,201,211,1) 100%);
   margin: 100px auto;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  border-radius: 20px;
 }
 
-.Container-tarefas1{
-  width: 100px;
-  height: 100px;
-  background: green;
+.Container-tarefas{
+  width: 400px;
+  height: 350px;
+  background: rgb(255, 255, 255);
   font-size: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
-.Container-tarefas2{
-  width: 100px;
-  height: 100px;
-  background: yellow;
-  font-size: 2rem;
+
+.Titulo{
+  font-size: 2.1rem;
+  font-style: italic;
+  font-family: 'Lato', sans-serif;
+  margin-top: 20px;
 }
 
 </style>

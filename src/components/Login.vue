@@ -78,7 +78,8 @@ body {
   justify-content: center;
   align-items: center;
   background-image: url('@/assets/back.png'); 
-  background: linear-gradient(to bottom right, #a4f1f6, #06bc9b);
+  background: rgb(15,109,103);
+  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%, rgba(29,201,211,1) 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -99,12 +100,15 @@ body {
 
 .form-group {
   margin-bottom: 1rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 input {
   width: 90%; 
   padding: 0.5rem;
   margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 button {
