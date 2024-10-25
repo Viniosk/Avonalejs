@@ -1,7 +1,7 @@
 <template>
     <body>
         <div class="cadastro-container">
-        <h1>Cadastro</h1>
+        <h1>CADASTRO</h1>
         <form @submit.prevent="submitForm">
             <div class="form-group">
                 <label for="nome">Nome:</label>
@@ -13,7 +13,11 @@
             </div>
             <div class="form-group">
                 <label for="senha">Senha:</label>
-                <input type="senha" id="senha" v-model="form.senha" placeholder="Digite sua senha" required>
+                <input type="password" 
+                id="password" 
+                v-model="password" 
+                placeholder="Digite sua senha" required>
+                
             </div>
             <button type="submit">Cadastrar</button>
         </form>
@@ -24,7 +28,7 @@
 <script>
 // eslint-disable-next-line vue/multi-word-component-names
 export default {
-    name: 'Cadastro',
+    name: 'CADASTRO',
     data() {
         return {
             form: {
@@ -47,8 +51,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgb(15,109,103);
-  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%, rgba(29,201,211,1) 100%);
+  background-image: url('@/assets/back.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -60,7 +63,7 @@ body {
   width: 100%; 
   padding: 2rem;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 255, 255, 0.423); 
 }
 
 .form-group {

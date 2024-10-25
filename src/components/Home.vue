@@ -1,7 +1,7 @@
 <template>
     <body>
         <div class="home-container">
-            <h1>Avonale</h1>
+          <img src="http://avonale.com.br/wp-content/uploads/2023/09/LOGO_0_Poli_redimen.png" >
             <div class="bt-container">
                 <button @click="login">Login</button>
             </div>
@@ -33,8 +33,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgb(15,109,103);
-  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%, rgba(29,201,211,1) 100%);
+  background-image: url('@/assets/back.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -46,7 +45,7 @@ body {
   width: 100%; 
   padding: 2rem;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 255, 255, 0.423); 
 }
 
 .home-container h1 {
