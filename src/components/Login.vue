@@ -17,11 +17,14 @@
           <div class="form-group">
               <label for="password">Senha:</label>
               <input 
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               id="password"
               v-model="password"
               placeholder="Digite sua senha"
               /> 
+              <div>
+            <input type="checkbox" id="showPassword" v-model="showPassword">
+          </div>
           </div>
           <button type="submit">Login</button>
       </form>
@@ -40,6 +43,7 @@ setup() {
   const email = ref("");
   const password = ref("");
   const errorMessage = ref("");
+  const showPassword = ref(false);
   const router = useRouter();
 
   const handleSubmit = () => {
@@ -61,11 +65,17 @@ setup() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+   showPassword.value = !showPassword.value;
+  };
+
   return {
     email,
     password,
     errorMessage,
+    showPassword,
     handleSubmit,
+    togglePasswordVisibility,
   };
 },
 };
@@ -129,6 +139,24 @@ p {
   color: red;
   text-align: center;
   font-weight: bold;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password {
+  background: none;
+  border: none;
+  color: #42b983;
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 0.9rem;
+}
+
+.toggle-password:hover {
+  color: #358e6f;
 }
 
 </style>
