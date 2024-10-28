@@ -4,6 +4,7 @@
   <body>
   <div class="Login-container">
     <img src="http://avonale.com.br/wp-content/uploads/2023/09/LOGO_0_Poli_redimen.png" >
+    <br><br>
       <form @submit.prevent="handleSubmit">
           <div class="form-group">
               <label for="email">Email:</label>
@@ -16,6 +17,7 @@
           </div>
           <div class="form-group">
               <label for="password">Senha:</label>
+              <div class="password-container">
               <input 
               :type="showPassword ? 'text' : 'password'"
               id="password"
@@ -23,7 +25,15 @@
               placeholder="Digite sua senha"
               /> 
               <div>
-            <input type="checkbox" id="showPassword" v-model="showPassword">
+            <button 
+            type="button"
+            @click="togglePasswordVisibility"
+            class="toggle-password-btn"
+            aria-label="Toggle password visibility"
+            >
+           <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+             </button>
+          </div>
           </div>
           </div>
           <button type="submit">Login</button>
@@ -82,6 +92,7 @@ setup() {
 </script>
 
 <style scoped>
+@import "@fortawesome/fontawesome-free/css/all.css";
 
 body {
   display: flex;
@@ -131,9 +142,6 @@ button {
   display: block;
 }
 
-button:hover {
-  background-color: #358e6f;
-}
 
 p {
   color: red;
@@ -146,17 +154,33 @@ p {
   align-items: center;
 }
 
-.toggle-password {
-  background: none;
-  border: none;
-  color: #42b983;
-  cursor: pointer;
-  margin-left: 5px;
-  font-size: 0.9rem;
+
+.password-container {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-.toggle-password:hover {
-  color: #358e6f;
+.toggle-password-btn {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #555; 
 }
+
+.toggle-password-btn i {
+  font-size: 1.2rem; 
+}
+
+.toggle-password-btn:hover i {
+  color: #000; 
+}
+
+.password-container{
+  width: 415px;
+}
+
 
 </style>

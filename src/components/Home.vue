@@ -2,6 +2,7 @@
     <body>
         <div class="home-container">
           <img src="http://avonale.com.br/wp-content/uploads/2023/09/LOGO_0_Poli_redimen.png" >
+          <br><br><br>
             <div class="bt-container">
                 <button @click="login">Login</button>
             </div>
@@ -64,6 +65,7 @@ body {
 button:hover {
     background-color: #2c8e6b;
     cursor: pointer;
+
 }
 
 button {
