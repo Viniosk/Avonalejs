@@ -45,7 +45,7 @@ body {
   width: 100%; 
   padding: 2rem;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.423); 
+  background-color: rgba(255, 255, 255, 0.85); 
 }
 
 .home-container h1 {
@@ -54,6 +54,7 @@ body {
 }
 
 .bt-container {
+  margin-top: 20px;
   margin-bottom: 2rem;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   justify-content: center;
