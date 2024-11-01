@@ -19,13 +19,17 @@
                 placeholder="Digite sua senha" required>
                 
             </div>
-            <button type="submit">Cadastrar</button>
+            <button type="submit" @click="login">Cadastrar</button>
         </form>
+
+        <a class="link" href="/login">Login</a>
         </div>
     </body>
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import Login from './Login.vue';
 // eslint-disable-next-line vue/multi-word-component-names
 export default {
     name: 'CADASTRO',
@@ -41,6 +45,9 @@ export default {
     methods: {
         submitForm() {
             // Handle form submission
+        },
+        login() {
+          this.$router.push('/login');
         }
     }
 };
@@ -63,7 +70,7 @@ body {
   width: 100%; 
   padding: 2rem;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.423); 
+  background-color: rgba(255, 255, 255, 0.85); 
 }
 
 .form-group {
@@ -91,6 +98,14 @@ button {
 
 .cadastro-container h1 {
   text-align: center;
+}
+
+.link {
+  display: block;
+  margin-top: 2rem;
+  margin-left: 21rem;
+  text-decoration: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 </style>

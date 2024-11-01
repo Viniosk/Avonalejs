@@ -7,8 +7,6 @@
     <nav class="nav">
       <ul>
         <li><a href="/">Início</a></li>
-        <li><a href="#">Sobre</a></li>
-        <li><a href="#">Serviços</a></li>
       </ul>
     </nav>
   </header>
@@ -17,13 +15,27 @@
 
     <div class="Container-tarefas">
 
-      <div class="Titulo">Pendentes</div>
+      <div class="Titulo">
+        Pendentes
+        <ul class="tarefas">
+          <li>Tarefa 1</li>
+          <li>Tarefa 2</li>
+          <li>Tarefa 3</li>
+        </ul>
+      </div>
 
     </div>
 
     <div class="Container-tarefas">
 
-      <div class="Titulo">Em execução</div>
+      <div class="Titulo">
+        Em execução
+        <ul class="tarefas">
+          <li>Tarefa 1</li>
+          <li>Tarefa 2</li>
+          <li>Tarefa 3</li>
+        </ul>
+      </div>
       
 
     </div>
@@ -121,6 +133,12 @@ export default {
   font-style: italic;
   font-family: 'Lato', sans-serif;
   margin-top: 20px;
+}
+
+.tarefas{
+  list-style-type: none;
+  padding: 0;
+  margin-top: 30px;
 }
 
 </style>
