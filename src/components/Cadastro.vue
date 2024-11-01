@@ -28,8 +28,8 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 import Login from './Login.vue';
+
 // eslint-disable-next-line vue/multi-word-component-names
 export default {
     name: 'CADASTRO',
@@ -70,7 +70,7 @@ body {
   width: 100%; 
   padding: 2rem;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.85); 
+  background-color: rgba(255, 255, 255, .85); 
 }
 
 .form-group {

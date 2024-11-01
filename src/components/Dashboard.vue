@@ -15,14 +15,7 @@
 
     <div class="Container-tarefas">
 
-      <div class="Titulo">
-        Pendentes
-        <ul class="tarefas">
-          <li>Tarefa 1</li>
-          <li>Tarefa 2</li>
-          <li>Tarefa 3</li>
-        </ul>
-      </div>
+      <div class="Titulo">Pendentes</div>
 
     </div>
 
