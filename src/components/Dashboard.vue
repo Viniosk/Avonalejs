@@ -11,38 +11,69 @@
     </nav>
   </header>
 
-  <div class="Container">
+  <br><br><br><br>
 
-    <div class="Container-tarefas">
-
-      <div class="Titulo">Pendentes</div>
-
-    </div>
-
-    <div class="Container-tarefas">
-
-      <div class="Titulo">
-        Em execução
-        <ul class="tarefas">
-          <li>Tarefa 1</li>
-          <li>Tarefa 2</li>
-          <li>Tarefa 3</li>
-        </ul>
+  <div class="container-tarefas">
+    <div class="container">
+      <div class="column">
+        <div class="item" draggable="true">TAREFA 1</div>
+        <div class="item" draggable="true">TAREFA 2</div>
       </div>
-      
-
+      <div class="column">
+        <div class="item" draggable="true">TAREFA 3</div>
+        <div class="item" draggable="true">TAREFA 4</div>
+      </div>
     </div>
-</div>
-
+  </div>
 </template>
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Dashboard",
   mounted() {
-      console.log("Componente Dashboard carregado!"); // Log para verificar o carregamento
-  }
+    console.log("Componente Dashboard carregado!");
+
+    const columns = document.querySelectorAll(".column");
+
+    document.addEventListener("dragstart", (e) => {
+      e.target.classList.add("dragging");
+    });
+
+    document.addEventListener("dragend", (e) => {
+      e.target.classList.remove("dragging");
+    });
+
+    columns.forEach((column) => {
+      column.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const dragging = document.querySelector(".dragging");
+        const applyAfter = this.getNewPosition(column, e.clientY);
+
+        if (applyAfter) {
+          applyAfter.insertAdjacentElement("afterend", dragging);
+        } else {
+          column.prepend(dragging);
+        }
+      });
+    });
+  },
+  methods: {
+    getNewPosition(column, posY) {
+      const items = column.querySelectorAll(".item:not(.dragging)");
+      let result = null;
+
+      items.forEach((item) => {
+        const box = item.getBoundingClientRect();
+        const boxCenterY = box.top + box.height / 2;
+
+        if (posY >= boxCenterY) {
+          result = item;
+        }
+      });
+
+      return result;
+    },
+  },
 };
 </script>
 
@@ -53,8 +84,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0.1rem 3rem;
-  background: rgb(15,109,103);
-  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%, rgba(29,201,211,1) 100%);
+  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%);
   color: #ffffff;
 }
 
@@ -66,12 +96,6 @@ export default {
 .logo img {
   height: 110px;
   margin-right: 15px;
-}
-
-.logo h1 {
-  font-size: 1.8rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
 }
 
 .nav ul {
@@ -99,39 +123,32 @@ export default {
   }
 }
 
-.Container{
-  width: 1000px;
-  height: 530px;
-  background: rgb(15,109,103);
-  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%, rgba(29,201,211,1) 100%);
-  margin: 100px auto;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  border-radius: 20px;
-}
-
-.Container-tarefas{
-  width: 400px;
-  height: 350px;
-  background: rgb(255, 255, 255);
-  font-size: 2rem;
+.container {
   display: flex;
   justify-content: center;
+  min-height: 400px;
+  gap: 50px; 
+  padding: 20px;
 }
 
-
-.Titulo{
-  font-size: 2.1rem;
-  font-style: italic;
-  font-family: 'Lato', sans-serif;
-  margin-top: 20px;
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background-color: rgb(18, 206, 215);
+  width: 300px; 
+  min-height: 500px; 
+  border-radius: 5px;
 }
 
-.tarefas{
-  list-style-type: none;
-  padding: 0;
-  margin-top: 30px;
+.item {
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 5px;
 }
 
+.dragging {
+  opacity: 0.6;
+}
 </style>
