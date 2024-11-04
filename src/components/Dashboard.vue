@@ -23,6 +23,10 @@
         <div class="item" draggable="true">TAREFA 3</div>
         <div class="item" draggable="true">TAREFA 4</div>
       </div>
+      <div class="column">
+        <div class="item" draggable="true">TAREFA 5</div>
+        <div class="item" draggable="true">TAREFA 6</div>
+      </div>
     </div>
   </div>
 </template>
