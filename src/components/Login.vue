@@ -79,6 +79,10 @@ setup() {
    showPassword.value = !showPassword.value;
   };
 
+  async function name(params) {
+    
+  }
+
   return {
     email,
     password,
