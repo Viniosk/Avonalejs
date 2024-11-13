@@ -80,7 +80,7 @@ setup() {
   };
 
   async function name(params) {
-    
+    // Configurar corretamente
   }
 
   return {

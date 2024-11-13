@@ -51,6 +51,12 @@ export default {
         }
     }
 };
+
+async function name(params) {
+    // Configurar corretamente
+  }
+
+
 </script>
 
 <style scoped>
