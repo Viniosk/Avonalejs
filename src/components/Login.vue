@@ -47,6 +47,7 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+/*import LoginService from "@/services/LoginService";*/
 
 export default {
 setup() {
@@ -79,9 +80,16 @@ setup() {
    showPassword.value = !showPassword.value;
   };
 
-  async function name(params) {
-    // Configurar corretamente
-  }
+  /*async function handleSubmit(){
+    await _loginService.Login(data.value)
+  }*/
+
+  /*let _loginService = new LoginService();
+
+  let data = ref({
+    username: "",
+    password: "",
+  })*/
 
   return {
     email,

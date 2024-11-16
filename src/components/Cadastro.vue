@@ -28,6 +28,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import Login from './Login.vue';
 
 // eslint-disable-next-line vue/multi-word-component-names
@@ -52,9 +53,7 @@ export default {
     }
 };
 
-async function name(params) {
-    // Configurar corretamente
-  }
+
 
 
 </script>
