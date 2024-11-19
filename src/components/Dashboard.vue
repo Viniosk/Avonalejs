@@ -15,17 +15,11 @@
 
   <div class="container-tarefas">
     <div class="container">
-      <div class="column">
-        <div class="item" draggable="true">TAREFA 1</div>
-        <div class="item" draggable="true">TAREFA 2</div>
-      </div>
-      <div class="column">
-        <div class="item" draggable="true">TAREFA 3</div>
-        <div class="item" draggable="true">TAREFA 4</div>
-      </div>
-      <div class="column">
-        <div class="item" draggable="true">TAREFA 5</div>
-        <div class="item" draggable="true">TAREFA 6</div>
+      <div class="column" v-for="tarefa in tarefas" :key="tarefa.id" draggable="true">
+        <div class="item" :class="{ urgente: tarefa.urgente }" draggable="true">
+          <h3>{{ tarefa.titulo }}</h3>
+          <p>{{ tarefa.descricao }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +28,18 @@
 <script>
 export default {
   name: "Dashboard",
+  data() {
+    return {
+      tarefas: [
+        { id: 1, titulo: "Lavar a louça", descricao: "Lavar toda a louça acumulada após o almoço", urgente: false },
+        { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para a equipe", urgente: true },
+        { id: 3, titulo: "Organizar escritório", descricao: "Arrumar papéis e itens desorganizados na mesa de trabalho", urgente: false },
+        { id: 4, titulo: "Estudar para a prova", descricao: "Revisar os temas para a prova de amanhã", urgente: true },
+        { id: 5, titulo: "Fazer compras", descricao: "Comprar itens essenciais para a casa", urgente: false },
+        { id: 6, titulo: "Responder e-mails", descricao: "Responder os e-mails que estão pendentes", urgente: true }
+      ],
+    };
+  },
   mounted() {
     console.log("Componente Dashboard carregado!");
 
@@ -52,7 +58,6 @@ export default {
         e.preventDefault();
         const dragging = document.querySelector(".dragging");
         const applyAfter = this.getNewPosition(column, e.clientY);
-
         if (applyAfter) {
           applyAfter.insertAdjacentElement("afterend", dragging);
         } else {
@@ -65,26 +70,17 @@ export default {
     getNewPosition(column, posY) {
       const items = column.querySelectorAll(".item:not(.dragging)");
       let result = null;
-
       items.forEach((item) => {
         const box = item.getBoundingClientRect();
         const boxCenterY = box.top + box.height / 2;
-
         if (posY >= boxCenterY) {
           result = item;
         }
       });
-
       return result;
     },
   },
 };
-
-async function name(params) {
-    // Configurar corretamente
-  }
-
-
 </script>
 
 <style scoped>
@@ -160,5 +156,9 @@ async function name(params) {
 
 .dragging {
   opacity: 0.6;
+}
+
+.urgente {
+  background-color: rgb(221, 44, 44);
 }
 </style>
