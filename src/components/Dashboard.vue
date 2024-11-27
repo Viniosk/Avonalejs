@@ -27,6 +27,7 @@
 
 <script>
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Dashboard",
   data() {
     return {
@@ -35,8 +36,6 @@ export default {
         { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para a equipe", urgente: true },
         { id: 3, titulo: "Organizar escritório", descricao: "Arrumar papéis e itens desorganizados na mesa de trabalho", urgente: false },
         { id: 4, titulo: "Estudar para a prova", descricao: "Revisar os temas para a prova de amanhã", urgente: true },
-        { id: 5, titulo: "Fazer compras", descricao: "Comprar itens essenciais para a casa", urgente: false },
-        { id: 6, titulo: "Responder e-mails", descricao: "Responder os e-mails que estão pendentes", urgente: true }
       ],
     };
   },
