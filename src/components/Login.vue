@@ -56,6 +56,7 @@ setup() {
   const errorMessage = ref("");
   const showPassword = ref(false);
   const router = useRouter();
+  
 
   const handleSubmit = () => {
     if (!email.value || !password.value) {

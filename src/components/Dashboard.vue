@@ -84,6 +84,10 @@
 </template>
 
 <script>
+const { getTarefas } = require("../http-common");
+
+console.log(await getTarefas());
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Dashboard",
@@ -135,6 +139,7 @@ export default {
       this.tarefaAtual = tarefa;
       this.colunaOrigem = colunaIndex;
     },
+    // eslint-disable-next-line no-unused-vars
     onDragOver(event, colunaIndex) {
       event.preventDefault();
     },
