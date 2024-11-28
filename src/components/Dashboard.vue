@@ -1,4 +1,3 @@
-<!-- src/components/Dashboard.vue -->
 <template>
   <header class="header">
     <div class="logo">
@@ -15,10 +14,69 @@
 
   <div class="container-tarefas">
     <div class="container">
-      <div class="column" v-for="tarefa in tarefas" :key="tarefa.id" draggable="true">
-        <div class="item" :class="{ urgente: tarefa.urgente }" draggable="true">
-          <h3>{{ tarefa.titulo }}</h3>
-          <p>{{ tarefa.descricao }}</p>
+      <div 
+        class="column" 
+        v-for="(coluna, index) in colunas" 
+        :key="index" 
+        @dragover.prevent="onDragOver($event, index)" 
+        @drop="onDrop($event, index)"
+      >
+        <div 
+          class="item" 
+          v-for="(tarefa, tarefaIndex) in coluna" 
+          :key="tarefa.id" 
+          :class="{ urgente: tarefa.urgente }" 
+          draggable="true" 
+          @dragstart="onDragStart(tarefa, index)"
+        >
+          <div class="task-header">
+            <h3 class="task-title">{{ tarefa.titulo }}</h3>
+            <div class="task-actions">
+              <button class="edit-btn" @click="confirmEdit(tarefa, index, tarefaIndex)">
+                ✏️
+              </button>
+              <button class="delete-btn" @click="confirmDelete(index, tarefaIndex)">
+                🗑️
+              </button>
+            </div>
+          </div>
+          
+          <p class="task-description">{{ tarefa.descricao }}</p>
+          
+          <div class="importance">
+            <span>Importância:</span>
+            <select v-model="tarefa.importancia">
+              <option value="alta">Alta</option>
+              <option value="media">Média</option>
+              <option value="baixa">Baixa</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="add-task-btn" @click="toggleForm(index)">+</button>
+
+        <div v-if="formVisible === index" class="add-task-form">
+          <input 
+            v-model="novaTarefa.titulo" 
+            type="text" 
+            placeholder="Título" 
+            class="task-input"
+          />
+          <textarea 
+            v-model="novaTarefa.descricao" 
+            placeholder="Descrição" 
+            class="task-input"
+          ></textarea>
+          <div class="importance">
+            <span>Importância:</span>
+            <select v-model="novaTarefa.importancia">
+              <option value="alta">Alta</option>
+              <option value="media">Média</option>
+              <option value="baixa">Baixa</option>
+            </select>
+          </div>
+          <button @click="adicionarTarefa(index)">Adicionar</button>
+          <button @click="toggleForm(null)">Cancelar</button>
         </div>
       </div>
     </div>
@@ -31,76 +89,115 @@ export default {
   name: "Dashboard",
   data() {
     return {
-      tarefas: [
-        { id: 1, titulo: "Lavar a louça", descricao: "Lavar toda a louça acumulada após o almoço", urgente: false },
-        { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para a equipe", urgente: true },
-        { id: 3, titulo: "Organizar escritório", descricao: "Arrumar papéis e itens desorganizados na mesa de trabalho", urgente: false },
-        { id: 4, titulo: "Estudar para a prova", descricao: "Revisar os temas para a prova de amanhã", urgente: true },
+      colunas: [
+        [
+          { id: 1, titulo: "Lavar a louça", descricao: "Lavar toda a louça acumulada após o almoço", urgente: false, },
+          { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para a equipe", urgente: true, },
+        ],
+        [
+          { id: 3, titulo: "Organizar escritório", descricao: "Arrumar papéis e itens desorganizados na mesa de trabalho", urgente: false, },
+        ],
+        [
+          { id: 4, titulo: "Estudar para a prova", descricao: "Revisar os temas para a prova de amanhã", urgente: true, },
+        ],
       ],
+      formVisible: null,
+      novaTarefa: { titulo: "", descricao: "", importancia: "baixa" },
+      tarefaAtual: null,
+      colunaOrigem: null,
     };
   },
-  mounted() {
-    console.log("Componente Dashboard carregado!");
-
-    const columns = document.querySelectorAll(".column");
-
-    document.addEventListener("dragstart", (e) => {
-      e.target.classList.add("dragging");
-    });
-
-    document.addEventListener("dragend", (e) => {
-      e.target.classList.remove("dragging");
-    });
-
-    columns.forEach((column) => {
-      column.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        const dragging = document.querySelector(".dragging");
-        const applyAfter = this.getNewPosition(column, e.clientY);
-        if (applyAfter) {
-          applyAfter.insertAdjacentElement("afterend", dragging);
-        } else {
-          column.prepend(dragging);
-        }
-      });
-    });
-  },
   methods: {
-    getNewPosition(column, posY) {
-      const items = column.querySelectorAll(".item:not(.dragging)");
-      let result = null;
-      items.forEach((item) => {
-        const box = item.getBoundingClientRect();
-        const boxCenterY = box.top + box.height / 2;
-        if (posY >= boxCenterY) {
-          result = item;
-        }
+    toggleForm(index) {
+      this.formVisible = this.formVisible === index ? null : index;
+      if (this.formVisible === null) {
+        this.novaTarefa = { titulo: "", descricao: "", importancia: "baixa" };
+      }
+    },
+    adicionarTarefa(index) {
+      if (!this.novaTarefa.titulo.trim() || !this.novaTarefa.descricao.trim()) {
+        alert("Preencha o título e a descrição da tarefa.");
+        return;
+      }
+
+      this.colunas[index].push({
+        id: Date.now(),
+        titulo: this.novaTarefa.titulo,
+        descricao: this.novaTarefa.descricao,
+        urgente: false,
+        importancia: this.novaTarefa.importancia,
       });
-      return result;
+
+      this.novaTarefa = { titulo: "", descricao: "", importancia: "baixa" };
+      this.formVisible = null;
+    },
+    onDragStart(tarefa, colunaIndex) {
+      this.tarefaAtual = tarefa;
+      this.colunaOrigem = colunaIndex;
+    },
+    onDragOver(event, colunaIndex) {
+      event.preventDefault();
+    },
+    onDrop(event, colunaIndex) {
+      if (this.colunaOrigem === colunaIndex) return;
+
+      this.colunas[this.colunaOrigem] = this.colunas[this.colunaOrigem].filter(
+        (tarefa) => tarefa.id !== this.tarefaAtual.id
+      );
+
+      this.colunas[colunaIndex].push(this.tarefaAtual);
+
+      this.tarefaAtual = null;
+      this.colunaOrigem = null;
+    },
+    confirmDelete(colunaIndex, tarefaIndex) {
+      const confirmacao = confirm("Você quer excluir essa tarefa?");
+      if (confirmacao) {
+        this.colunas[colunaIndex].splice(tarefaIndex, 1);
+      }
+    },
+    confirmEdit(tarefa, colunaIndex, tarefaIndex) {
+      const confirmacao = confirm("Você gostaria de editar essa tarefa?");
+      if (confirmacao) {
+        const novoTitulo = prompt("Novo título:", tarefa.titulo) || tarefa.titulo;
+        const novaDescricao =
+          prompt("Nova descrição:", tarefa.descricao) || tarefa.descricao;
+        const novaImportancia =
+          prompt("Novo nível de importância (alta, media, baixa):", tarefa.importancia) || tarefa.importancia;
+        this.colunas[colunaIndex][tarefaIndex] = {
+          ...tarefa,
+          titulo: novoTitulo,
+          descricao: novaDescricao,
+          importancia: novaImportancia,
+        };
+      }
     },
   },
 };
 </script>
 
 <style scoped>
+/* Estilo do cabeçalho */
 .header {
   height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.1rem 3rem;
-  background: linear-gradient(34deg, rgba(15,109,103,1) 3%, rgba(29,201,211,1) 51%);
+  background: linear-gradient(34deg, rgba(15, 109, 103, 1) 3%, rgba(29, 201, 211, 1) 51%);
   color: #ffffff;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .logo img {
-  height: 110px;
-  margin-right: 15px;
+  max-height: 120px;
+  max-width: 100%;
 }
 
 .nav ul {
@@ -128,11 +225,12 @@ export default {
   }
 }
 
+/* Estilo das colunas e tarefas */
 .container {
   display: flex;
   justify-content: center;
   min-height: 400px;
-  gap: 50px; 
+  gap: 50px;
   padding: 20px;
 }
 
@@ -142,8 +240,8 @@ export default {
   gap: 10px;
   padding: 20px;
   background-color: rgb(18, 206, 215);
-  width: 300px; 
-  min-height: 500px; 
+  width: 300px;
+  min-height: 500px;
   border-radius: 5px;
 }
 
@@ -151,13 +249,64 @@ export default {
   background-color: rgb(255, 255, 255);
   padding: 10px;
   border-radius: 5px;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
 }
 
-.dragging {
-  opacity: 0.6;
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.urgente {
-  background-color: rgb(221, 44, 44);
+.task-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.task-title {
+  white-space: normal;
+  word-wrap: break-word;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.task-description {
+  font-size: 0.9rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.importance {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.importance select {
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.add-task-btn {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.add-task-btn:hover {
+  background-color: #45a049;
 }
 </style>
