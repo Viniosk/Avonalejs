@@ -1,4 +1,4 @@
-<template>
+<template> 
   <header class="header">
     <div class="logo">
       <img src="@/assets/avonalep.png" alt="Logo" />
@@ -12,78 +12,94 @@
 
   <br><br><br><br>
 
-  <div class="container-tarefas">
-    <div class="container">
-      <div 
-        class="column" 
-        v-for="(coluna, index) in colunas" 
-        :key="index" 
-        @dragover.prevent="onDragOver($event, index)" 
-        @drop="onDrop($event, index)"
-      >
+  <body>
+    <div class="container-tarefas">
+      <div class="container">
+        <!-- Adicionando títulos para as colunas -->
         <div 
-          class="item" 
-          v-for="(tarefa, tarefaIndex) in coluna" 
-          :key="tarefa.id" 
-          :class="{ urgente: tarefa.urgente }" 
-          draggable="true" 
-          @dragstart="onDragStart(tarefa, index)"
+          class="column" 
+          v-for="(coluna, index) in colunas" 
+          :key="index" 
+          @dragover.prevent="onDragOver($event, index)" 
+          @drop="onDrop($event, index)"
         >
-          <div class="task-header">
-            <h3 class="task-title">{{ tarefa.titulo }}</h3>
-            <div class="task-actions">
-              <button class="edit-btn" @click="confirmEdit(tarefa, index, tarefaIndex)">
-                ✏️
-              </button>
-              <button class="delete-btn" @click="confirmDelete(index, tarefaIndex)">
-                🗑️
-              </button>
+          <!-- Títulos baseados na posição das colunas -->
+          <h2 class="column-title" v-if="index === 0">Iniciar</h2>
+          <h2 class="column-title" v-else-if="index === 1">Em processo</h2>
+          <h2 class="column-title" v-else>Finalização</h2>
+
+          <!-- Lista de tarefas dentro da coluna -->
+          <div 
+            class="item" 
+            v-for="(tarefa, tarefaIndex) in coluna" 
+            :key="tarefa.id" 
+            :class="{ urgente: tarefa.urgente }" 
+            draggable="true" 
+            @dragstart="onDragStart(tarefa, index)"
+          >
+            <div class="task-header">
+              <h3 class="task-title">{{ tarefa.titulo }}</h3>
+              <div class="task-actions">
+                <button class="edit-btn" @click="confirmEdit(tarefa, index, tarefaIndex)">
+                  ✏️
+                </button>
+                <button class="delete-btn" @click="confirmDelete(index, tarefaIndex)">
+                  🗑️
+                </button>
+              </div>
+            </div>
+            
+            <p class="task-description">{{ tarefa.descricao }}</p>
+            
+            <div class="importance">
+              <span>Importância:</span>
+              <select v-model="tarefa.importancia">
+                <option value="alta">Alta</option>
+                <option value="media">Média</option>
+                <option value="baixa">Baixa</option>
+              </select>
             </div>
           </div>
-          
-          <p class="task-description">{{ tarefa.descricao }}</p>
-          
-          <div class="importance">
-            <span>Importância:</span>
-            <select v-model="tarefa.importancia">
-              <option value="alta">Alta</option>
-              <option value="media">Média</option>
-              <option value="baixa">Baixa</option>
-            </select>
-          </div>
-        </div>
 
-        <button class="add-task-btn" @click="toggleForm(index)">+</button>
+          <!-- Botão para adicionar tarefa -->
+          <button class="add-task-btn" @click="toggleForm(index)">+</button>
 
-        <div v-if="formVisible === index" class="add-task-form">
-          <input 
-            v-model="novaTarefa.titulo" 
-            type="text" 
-            placeholder="Título" 
-            class="task-input"
-          />
-          <textarea 
-            v-model="novaTarefa.descricao" 
-            placeholder="Descrição" 
-            class="task-input"
-          ></textarea>
-          <div class="importance">
-            <span>Importância:</span>
-            <select v-model="novaTarefa.importancia">
-              <option value="alta">Alta</option>
-              <option value="media">Média</option>
-              <option value="baixa">Baixa</option>
-            </select>
+          <!-- Formulário para adicionar nova tarefa -->
+          <div v-if="formVisible === index" class="add-task-form">
+            <input 
+              v-model="novaTarefa.titulo" 
+              type="text" 
+              placeholder="Título" 
+              class="task-input"
+            />
+            <textarea 
+              v-model="novaTarefa.descricao" 
+              placeholder="Descrição" 
+              class="task-input"
+            ></textarea>
+            <div class="importance">
+              <span>Importância:</span>
+              <select v-model="novaTarefa.importancia">
+                <option value="alta">Alta</option>
+                <option value="media">Média</option>
+                <option value="baixa">Baixa</option>
+              </select>
+            </div>
+            <button @click="adicionarTarefa(index)">Adicionar</button>
+            <button @click="toggleForm(null)">Cancelar</button>
           </div>
-          <button @click="adicionarTarefa(index)">Adicionar</button>
-          <button @click="toggleForm(null)">Cancelar</button>
         </div>
       </div>
     </div>
-  </div>
+  </body>
 </template>
 
+
 <script>
+// const { getTarefas } = require("../http-common");
+
+// console.log(await getTarefas());
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Dashboard",
@@ -91,14 +107,14 @@ export default {
     return {
       colunas: [
         [
-          { id: 1, titulo: "Lavar a louça", descricao: "Lavar toda a louça acumulada após o almoço", urgente: false, },
-          { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para a equipe", urgente: true, },
+          { id: 1, titulo: "Edição do Front", descricao: "Termine de estilizar front-end a page do dashboard.", urgente: false, },
+          { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para toda a equipe.", urgente: true, },
         ],
         [
-          { id: 3, titulo: "Organizar escritório", descricao: "Arrumar papéis e itens desorganizados na mesa de trabalho", urgente: false, },
+          { id: 3, titulo: "Atualização de Funções", descricao: "Teste as funções que foram adicionadas a page do login.", urgente: false, },
         ],
         [
-          { id: 4, titulo: "Estudar para a prova", descricao: "Revisar os temas para a prova de amanhã", urgente: true, },
+          { id: 4, titulo: "Teste a Conectividade", descricao: "Verificar se o back-end esta conseguindo se conectar corretamente ao banco.", urgente: true, },
         ],
       ],
       formVisible: null,
@@ -135,6 +151,7 @@ export default {
       this.tarefaAtual = tarefa;
       this.colunaOrigem = colunaIndex;
     },
+    // eslint-disable-next-line no-unused-vars
     onDragOver(event, colunaIndex) {
       event.preventDefault();
     },
@@ -177,6 +194,16 @@ export default {
 </script>
 
 <style scoped>
+
+.column-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: bold;
+}
+
+
 /* Estilo do cabeçalho */
 .header {
   height: 75px;
@@ -208,7 +235,7 @@ export default {
 }
 
 .nav ul li a {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.3s ease;
