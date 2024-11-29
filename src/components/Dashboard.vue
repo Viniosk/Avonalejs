@@ -108,7 +108,7 @@ export default {
       colunas: [
         [
           { id: 1, titulo: "Edição do Front", descricao: "Terminar de estilizar front-end a page do dashboard.", urgente: false, },
-          { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para a equipe.", urgente: true, },
+          { id: 2, titulo: "Enviar relatório", descricao: "Finalizar e enviar o relatório para toda a equipe.", urgente: true, },
         ],
         [
           { id: 3, titulo: "Atualização de Funções", descricao: "Teste as funções que foram adicionadas a page do login.", urgente: false, },
