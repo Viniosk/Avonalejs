@@ -10,7 +10,8 @@
     </nav>
   </header>
 
-  <br><br><br><br>
+  <div class="spacer"></div>
+
 
   <body>
     <div class="container-tarefas">
@@ -336,4 +337,9 @@ export default {
 .add-task-btn:hover {
   background-color: #45a049;
 }
+
+.spacer {
+  height: 80px; /* Altura do espaço */
+}
+
 </style>
